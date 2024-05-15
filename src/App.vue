@@ -1,120 +1,156 @@
-<script setup>
-import { ref, computed, watchEffect } from 'vue'
+<template>
+  <div>
+    <div class="menu">
+      <button @click="switchMenu('todo')" :class="{ active: currentMenu === 'todo' }">Todo</button>
+      <button @click="switchMenu('post')" :class="{ active: currentMenu === 'post' }">Post</button>
+    </div>
+    <div v-if="currentMenu === 'todo'">
+      <!-- Form Todo -->
+      <form @submit.prevent="addTask">
+        <input type="text" v-model="newTask" placeholder="Tambahkan Kegiatan Baru">
+        <button>Tambahkan</button>
+      </form>
+      <!-- Daftar Todo -->
+      <ul>
+        <li v-for="(task, index) in tasks" :key="index" class="task-item">
+          <button @click="completeTask(index)" :class="{ completedButton: task.completed }">
+            <span style="color: #fff;">✔️</span>
+          </button>
+          <span @click="completeTask(index)" :class="{ completed: task.completed }">{{ task.title }}</span>
+          <button @click="deleteTask(index)">Hapus</button>
+        </li>
+      </ul>
+    </div>
+    <div v-else-if="currentMenu === 'post'">
+      <!-- Form Post -->
+      <form @submit.prevent="submitPost">
+        <div>
+          <label for="userSelect">Pilih User:</label>
+          <select id="userSelect" v-model="selectedUser">
+            <option v-for="user in users" :key="user.id" :value="user.name">{{ user.name }}</option>
+          </select>
+        </div>
+        <button>Submit</button>
+      </form>
+    </div>
+  </div>
+</template>
 
-const STORAGE_KEY = 'vue-todomvc'
-
-const filters = {
-  all: (todos) => todos,
-  active: (todos) => todos.filter((todo) => !todo.completed),
-  completed: (todos) => todos.filter((todo) => todo.completed)
-}
-
-const todos = ref(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'))
-const visibility = ref('all')
-const editedTodo = ref()
-
-const filteredTodos = computed(() => filters[visibility.value](todos.value))
-const remaining = computed(() => filters.active(todos.value).length)
-
-window.addEventListener('hashchange', onHashChange)
-onHashChange()
-
-watchEffect(() => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(todos.value))
-})
-
-function addTodo(e) {
-  const value = e.target.value.trim()
-  if (value) {
-    todos.value.push({
-      id: Date.now(),
-      title: value,
-      completed: false
-    })
-    e.target.value = ''
-  }
-}
-
-function removeTodo(todo) {
-  todos.value.splice(todos.value.indexOf(todo), 1)
-}
-
-let beforeEditCache = ''
-function editTodo(todo) {
-  beforeEditCache = todo.title
-  editedTodo.value = todo
-}
-
-function cancelEdit(todo) {
-  editedTodo.value = null
-  todo.title = beforeEditCache
-}
-
-function doneEdit(todo) {
-  if (editedTodo.value) {
-    editedTodo.value = null
-    todo.title = todo.title.trim()
-    if (!todo.title) removeTodo(todo)
-  }
-}
-
-function removeCompleted() {
-  todos.value = filters.active(todos.value)
-}
-
-function onHashChange() {
-  const route = window.location.hash.replace(/#\/?/, '')
-  if (filters[route]) {
-    visibility.value = route
-  } else {
-    window.location.hash = ''
-    visibility.value = 'all'
+<script>
+export default {
+  data() {
+    return {
+      tasks: [
+        { title: 'ngoding', completed: false },
+      ],
+      newTask: '',
+      currentMenu: 'todo', // Default menu adalah Todo
+      users: [
+        { id: 1, name: 'Naufal Rizh' },
+        { id: 2, name: 'Aldo Albert' },
+        { id: 3, name: 'Teguh Starboy' },
+        { id: 4, name: 'Rifky Fxrusy' },
+      ],
+      selectedUser: ''
+    }
+  },
+  methods: {
+    addTask() {
+      if (this.newTask.trim() !== '') {
+        this.tasks.push({ title: this.newTask, completed: false });
+        this.newTask = '';
+      }
+    },
+    completeTask(index) {
+      this.tasks[index].completed = !this.tasks[index].completed;
+    },
+    deleteTask(index) {
+      this.tasks.splice(index, 1);
+    },
+    switchMenu(menu) {
+      this.currentMenu = menu;
+    },
+    submitPost() {
+      alert(`Post submitted for user: ${this.selectedUser}`);
+      // Reset selected user
+      this.selectedUser = '';
+    }
   }
 }
 </script>
 
-<template>
-  <section class="todoapp">
-    <header class="header">
-      <h1>List Desa</h1>
-      <input
-        class="new-todo"
-        autofocus
-        placeholder="Masukkan Nama Desa"
-        @keyup.enter="addTodo"
-      >
-    </header>
-    <section class="main" v-show="todos.length">
-      <ul class="todo-list">
-        <li
-          v-for="todo in filteredTodos"
-          class="todo"
-          :key="todo.id"
-          :class="{ completed: todo.completed, editing: todo === editedTodo }"
-        >
-          <div class="view">
-            <input class="toggle" type="checkbox" v-model="todo.completed">
-            <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
-            <button class="destroy" @click="removeTodo(todo)"></button>
-          </div>
-          <input
-            v-if="todo === editedTodo"
-            class="edit"
-            type="text"
-            v-model="todo.title"
-            @vue:mounted="({ el }) => el.focus()"
-            @blur="doneEdit(todo)"
-            @keyup.enter="doneEdit(todo)"
-            @keyup.escape="cancelEdit(todo)"
-          >
-        </li>
-      </ul>
-    </section>
-    <footer class="footer" v-show="todos.length">
-      <span class="todo-count">
-        <strong>{{ remaining }}</strong>
-        <span>{{ remaining === 1 ? ' item' : ' items' }} left</span>
-      </span>
-    </footer>
-  </section>
-</template>
+<style>
+h1 {
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+input[type="text"], select {
+  padding: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 5px 10px;
+  font-size: 16px;
+  background-color: hsl(249, 85%, 64%);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: #000; /* Latar belakang hitam */
+  color: #fff; /* Warna teks putih */
+  border: 1px solid #fff; /* Border putih */
+  padding: 10px; /* Padding untuk ruang di dalam border */
+}
+
+li span {
+  flex: 1;
+  cursor: pointer;
+}
+
+span.completed {
+  text-decoration: line-through;
+}
+
+button.completedButton {
+  background-color: #4CAF50;
+  color: #fff;
+  margin-right: 10px;
+}
+
+button.completedButton.completed {
+  background-color: #009688;
+}
+
+.ig-info {
+  display: none; /* Menyembunyikan elemen */
+}
+
+.menu {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+button.active {
+  background-color: #555;
+  color: #fff;
+}
+</style>
