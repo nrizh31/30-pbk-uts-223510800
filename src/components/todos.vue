@@ -33,7 +33,7 @@
 
 
 <script>
-import { useTaskStore } from '../stores';
+import { useTaskStore } from '../stores/IndexS';
 import { ref, computed } from 'vue';
 
 export default {
