@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="post-form">
     <form @submit.prevent="submitPost">
       <label for="userSelect">Pilih User:</label>
       <select id="userSelect" v-model="selectedUser" required>
@@ -33,6 +33,47 @@ export default {
 }
 </script>
 
-<style>
-/* styles here */
+<style scoped>
+.post-form {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.post-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-form label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.post-form select {
+  margin-bottom: 20px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #000;
+}
+
+.post-form button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.post-form button:hover {
+  background-color: #45a049;
+}
 </style>
