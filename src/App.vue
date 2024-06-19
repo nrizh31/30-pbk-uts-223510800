@@ -1,156 +1,105 @@
 <template>
-  <div>
-    <div class="menu">
-      <button @click="switchMenu('todo')" :class="{ active: currentMenu === 'todo' }">Todo</button>
-      <button @click="switchMenu('post')" :class="{ active: currentMenu === 'post' }">Post</button>
-    </div>
-    <div v-if="currentMenu === 'todo'">
-      <!-- Form Todo -->
-      <form @submit.prevent="addTask">
-        <input type="text" v-model="newTask" placeholder="Tambahkan Kegiatan Baru">
-        <button>Tambahkan</button>
-      </form>
-      <!-- Daftar Todo -->
-      <ul>
-        <li v-for="(task, index) in tasks" :key="index" class="task-item">
-          <button @click="completeTask(index)" :class="{ completedButton: task.completed }">
-            <span style="color: #fff;">✔️</span>
-          </button>
-          <span @click="completeTask(index)" :class="{ completed: task.completed }">{{ task.title }}</span>
-          <button @click="deleteTask(index)">Hapus</button>
-        </li>
-      </ul>
-    </div>
-    <div v-else-if="currentMenu === 'post'">
-      <!-- Form Post -->
-      <form @submit.prevent="submitPost">
-        <div>
-          <label for="userSelect">Pilih User:</label>
-          <select id="userSelect" v-model="selectedUser">
-            <option v-for="user in users" :key="user.id" :value="user.name">{{ user.name }}</option>
-          </select>
-        </div>
-        <button>Submit</button>
-      </form>
-    </div>
-  </div>
+  <q-layout view="hHh lpR fFf" class="app-layout">
+    <q-header elevated class="bg-navy text-white" style="min-height: 120px;">
+      <q-toolbar>
+        <q-toolbar-title class="q-ml-auto q-mr-md">{{ formattedDateTime }}</q-toolbar-title>
+      </q-toolbar>
+
+      <q-tabs align="center" class="justify-center" style="flex: 1;">
+        <q-route-tab to="/todos" label="Todo" :exact="true" />
+        <q-route-tab to="/post" label="Post" :exact="true" />
+        <q-route-tab to="/albums" label="Albums" :exact="true" />
+      </q-tabs>
+    </q-header>
+
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script>
 export default {
+  name: 'App',
   data() {
     return {
-      tasks: [
-        { title: 'ngoding', completed: false },
-      ],
-      newTask: '',
-      currentMenu: 'todo', // Default menu adalah Todo
-      users: [
-        { id: 1, name: 'Naufal Rizh' },
-        { id: 2, name: 'Aldo Albert' },
-        { id: 3, name: 'Teguh Starboy' },
-        { id: 4, name: 'Rifky Fxrusy' },
-      ],
-      selectedUser: ''
+      currentMenu: 'todos', // Menu default adalah Todo
+      currentTimeInterval: null,
+      formattedDateTime: ''
     }
   },
+  created() {
+    // Redirect to "/todos" when component is created
+    this.$router.push('/todos');
+
+    // Set interval to update current time every second
+    this.currentTimeInterval = setInterval(() => {
+      this.updateDateTime();
+    }, 1000);
+  },
+  destroyed() {
+    // Clear interval when component is destroyed to prevent memory leaks
+    clearInterval(this.currentTimeInterval);
+  },
   methods: {
-    addTask() {
-      if (this.newTask.trim() !== '') {
-        this.tasks.push({ title: this.newTask, completed: false });
-        this.newTask = '';
-      }
-    },
-    completeTask(index) {
-      this.tasks[index].completed = !this.tasks[index].completed;
-    },
-    deleteTask(index) {
-      this.tasks.splice(index, 1);
-    },
-    switchMenu(menu) {
-      this.currentMenu = menu;
-    },
-    submitPost() {
-      alert(`Post submitted for user: ${this.selectedUser}`);
-      // Reset selected user
-      this.selectedUser = '';
+    updateDateTime() {
+      const now = new Date();
+      const options = {
+        timeZone: 'Asia/Jakarta', // Set timezone to WIB (Western Indonesia Time)
+        hour12: false, // Use 24-hour format
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      };
+      this.formattedDateTime = now.toLocaleString('id-ID', options);
     }
   }
 }
 </script>
 
-<style>
-h1 {
+<style scoped>
+/* Gaya khusus untuk komponen Vue Anda */
+.app-layout .bg-navy {
+  background-color: #055009; /* Warna biru navy */
+}
+
+.app-layout .menu {
   margin-bottom: 20px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-input[type="text"], select {
-  padding: 5px;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-button {
-  padding: 5px 10px;
-  font-size: 16px;
-  background-color: hsl(249, 85%, 64%);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  background-color: #000; /* Latar belakang hitam */
-  color: #fff; /* Warna teks putih */
-  border: 1px solid #fff; /* Border putih */
-  padding: 10px; /* Padding untuk ruang di dalam border */
-}
-
-li span {
-  flex: 1;
-  cursor: pointer;
-}
-
-span.completed {
-  text-decoration: line-through;
-}
-
-button.completedButton {
-  background-color: #4CAF50;
-  color: #fff;
+.app-layout .menu router-link {
   margin-right: 10px;
 }
 
-button.completedButton.completed {
-  background-color: #009688;
+.app-layout .menu .active {
+  font-weight: bold;
 }
 
-.ig-info {
-  display: none; /* Menyembunyikan elemen */
+.app-layout .info {
+  margin-top: 20px;
+  text-align: center;
 }
 
-.menu {
+.app-layout .info p {
+  margin: 5px 0;
+}
+
+.app-layout .q-tabs__container {
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 }
 
-button.active {
-  background-color: #555;
-  color: #fff;
+.q-ml-auto {
+  margin-left: auto; /* Memindahkan ke kanan dengan margin-left:auto */
+}
+
+.q-mr-md {
+  margin-right: 20px; /* Memberikan margin kanan */
+  text-align: right; /* Menyebarkan teks ke kanan */
 }
 </style>
