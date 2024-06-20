@@ -1,0 +1,12 @@
+{
+  "albums": [
+    { "id": 1, "title": "Mode Gaming", "coverPhotoId": 1, "photoIds": [1] },
+    { "id": 2, "title": "Feeling Beautiful of Hijab", "coverPhotoId": 2, "photoIds": [2] }
+  ],
+
+  "photos": [
+    { "albumId": 1, "id": 1, "thumbnailUrl": "https://i.pinimg.com/564x/54/68/a3/5468a33bc43e258995f15ad01e5ad7cc.jpg", "url": "https://via.placeholder.com/600/771796" },
+    { "albumId": 2, "id": 2, "thumbnailUrl": "https://i.pinimg.com/736x/49/70/21/49702117f912edcc4c8c73637c96b34e.jpg", "url": "https://via.placeholder.com/600/24f355" },
+    { "albumId": 3, "id": 3, "thumbnailUrl": "https://via.placeholder.com/150/24f355", "url": "https://via.placeholder.com/600/771796" }
+  ]
+}
