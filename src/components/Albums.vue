@@ -1,13 +1,13 @@
 <template>
   <div class="post-form">
-    <h1>{{ greeting }}</h1>
+    <h1 :class="greetingClass">{{ greeting }}</h1>
     <div class="albums-container">
       <router-link v-for="album in albums" :key="album.id" :to="'/albums/' + album.id">
         <div class="album-item">
           <div class="album-card">
             <h2>{{ album.title }}</h2>
             <div class="album-thumbnails">
-              <img v-for="photoId in getAlbumPhotoIds(album.id)" :key="photoId" :src="getPhotoThumbnailUrl(photoId)" :alt="getPhotoTitle(photoId)" @click="viewPhoto(album.id, photoId)">
+              <img v-for="(photoId, index) in getAlbumPhotoIds(album.id).slice(0, 4)" :key="index" :src="getPhotoThumbnailUrl(photoId)" :alt="getPhotoTitle(photoId)" @click="viewPhoto(album.id, photoId)">
             </div>
           </div>
         </div>
@@ -31,7 +31,7 @@ export default {
         const albumsResponse = await fetch('http://localhost:3000/albums');
         if (albumsResponse.ok) {
           const allAlbums = await albumsResponse.json();
-          albums.value = allAlbums.slice(0, 2); // Mengambil hanya 2 album pertama untuk contoh
+          albums.value = allAlbums; // Mengambil semua album dari JSON
           console.log('Albums fetched:', albums.value);
         } else {
           console.error('Failed to fetch albums:', albumsResponse.statusText);
@@ -68,16 +68,16 @@ export default {
       return photo ? photo.title : ''; // Mengembalikan judul foto
     }
 
-    // Fungsi untuk menampilkan foto dalam ukuran sebenarnya
     function viewPhoto(albumId, photoId) {
       const photo = photos.value.find(photo => photo.id === photoId);
       if (photo) {
-        // Navigasi ke halaman detail foto dengan menyediakan properti `photoId`
         router.push({ path: `/photos/${photo.id}`, query: { url: photo.url } });
       }
     }
 
-    return { greeting, albums, getAlbumPhotoIds, getPhotoThumbnailUrl, getPhotoTitle, viewPhoto };
+    const greetingClass = ref('album-greeting');
+
+    return { greeting, greetingClass, albums, getAlbumPhotoIds, getPhotoThumbnailUrl, getPhotoTitle, viewPhoto };
   }
 };
 </script>
@@ -91,11 +91,11 @@ export default {
   width: 900px;
   margin: 50px auto 90px; /* Centering the form horizontally */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-family: Cambria, serif;
   text-align: center;
 }
 
-.post-form h1 {
+.album-greeting {
+  font-family: Tahoma, sans-serif;
   font-size: 30px;
 }
 
