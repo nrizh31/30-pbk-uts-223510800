@@ -2,16 +2,16 @@
   <div class="post-form">
     <h1>{{ greeting }}</h1>
     <div class="albums-container">
-      <div v-for="album in albums" :key="album.id" class="album-item">
-        <router-link :to="'/albums/' + album.id">
+      <router-link v-for="album in albums" :key="album.id" :to="'/albums/' + album.id">
+        <div class="album-item">
           <div class="album-card">
             <h2>{{ album.title }}</h2>
             <div class="album-thumbnails">
-              <img v-for="photoId in getAlbumPhotoIds(album.id)" :key="photoId" :src="getPhotoThumbnailUrl(photoId)" :alt="getPhotoTitle(photoId)">
+              <img v-for="photoId in getAlbumPhotoIds(album.id)" :key="photoId" :src="getPhotoThumbnailUrl(photoId)" :alt="getPhotoTitle(photoId)" @click="viewPhoto(album.id, photoId)">
             </div>
           </div>
-        </router-link>
-      </div>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -20,6 +20,7 @@
 import { ref, onMounted } from 'vue';
 
 export default {
+  name: 'Albums',
   setup() {
     const greeting = 'Album Foto';
     const albums = ref([]);
@@ -30,7 +31,7 @@ export default {
         const albumsResponse = await fetch('http://localhost:3000/albums');
         if (albumsResponse.ok) {
           const allAlbums = await albumsResponse.json();
-          albums.value = allAlbums.slice(0, 2); // Mengambil hanya 2 album pertama
+          albums.value = allAlbums.slice(0, 2); // Mengambil hanya 2 album pertama untuk contoh
           console.log('Albums fetched:', albums.value);
         } else {
           console.error('Failed to fetch albums:', albumsResponse.statusText);
@@ -67,7 +68,16 @@ export default {
       return photo ? photo.title : ''; // Mengembalikan judul foto
     }
 
-    return { greeting, albums, getAlbumPhotoIds, getPhotoThumbnailUrl, getPhotoTitle };
+    // Fungsi untuk menampilkan foto dalam ukuran sebenarnya
+    function viewPhoto(albumId, photoId) {
+      const photo = photos.value.find(photo => photo.id === photoId);
+      if (photo) {
+        // Navigasi ke halaman detail foto dengan menyediakan properti `photoId`
+        router.push({ path: `/photos/${photo.id}`, query: { url: photo.url } });
+      }
+    }
+
+    return { greeting, albums, getAlbumPhotoIds, getPhotoThumbnailUrl, getPhotoTitle, viewPhoto };
   }
 };
 </script>
@@ -79,7 +89,7 @@ export default {
   padding: 40px 20px;
   border-radius: 8px;
   width: 900px;
-  margin: 50px auto 90px;
+  margin: 50px auto 90px; /* Centering the form horizontally */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   font-family: Cambria, serif;
   text-align: center;
@@ -93,6 +103,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: 20px; /* Jarak antara album-item */
+  justify-content: center; /* Centering albums horizontally */
 }
 
 .album-item {

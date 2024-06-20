@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router/indexRouter.js'
+import router from './router/indexRouter.js';  // Corrected import
 import { createPinia } from 'pinia';
 import { Quasar } from 'quasar';
 
@@ -8,7 +8,7 @@ import { Quasar } from 'quasar';
 import '@quasar/extras/material-icons/material-icons.css';
 
 // Import Quasar css
-import 'quasar/src/css/index.sass'
+import 'quasar/dist/quasar.css';
 
 const pinia = createPinia();
 
@@ -17,7 +17,7 @@ const myApp = createApp(App);
 myApp.use(router);
 myApp.use(pinia);
 myApp.use(Quasar, {
-  plugins: {} // import Quasar plugins and add here if needed
+  plugins: [] // Ensure this is an array if no plugins are added
 });
 
 // Assumes you have a <div id="app"></div> in your index.html

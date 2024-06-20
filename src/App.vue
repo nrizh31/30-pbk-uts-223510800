@@ -66,32 +66,8 @@ export default {
   background-color: #055009; /* Warna biru navy */
 }
 
-.app-layout .menu {
-  margin-bottom: 20px;
-}
-
-.app-layout .menu router-link {
-  margin-right: 10px;
-}
-
-.app-layout .menu .active {
-  font-weight: bold;
-}
-
-.app-layout .info {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.app-layout .info p {
-  margin: 5px 0;
-}
-
-.app-layout .q-tabs__container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
+.q-tabs__item--active {
+  border-bottom: 2px solid white; /* Menambahkan garis bawah putih untuk tab aktif */
 }
 
 .q-ml-auto {
