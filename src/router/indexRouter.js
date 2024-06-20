@@ -8,7 +8,7 @@ const routes = [
   { path: '/todos', component: Todos },
   { path: '/post', component: Post },
   { path: '/albums', component: Albums },
-  { path: '/albumdetail', component: AlbumDetail }
+  { path: '/albums/:albumId', component: AlbumDetail, name: 'AlbumDetail' }
 ];
 
 const router = createRouter({

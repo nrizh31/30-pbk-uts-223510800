@@ -1,8 +1,8 @@
 <template>
   <div class="album-detail">
-    <h2>{{ album.title }}</h2>
-    <div class="album-photos">
-      <img v-for="photo in album.photos" :key="photo.id" :src="photo.thumbnailUrl" :alt="photo.title" @click="viewPhoto(photo)">
+    <h1 class="album-title">{{ albumTitle }}</h1>
+    <div class="photo-thumbnails">
+      <img v-for="photo in albumPhotos.slice(0, 10)" :key="photo.id" :src="photo.thumbnailUrl" @click="viewFullSize(photo.url)">
     </div>
   </div>
 </template>
@@ -14,37 +14,47 @@ import { useRoute } from 'vue-router';
 export default {
   name: 'AlbumDetail',
   setup() {
-    const album = ref(null);
-    const photos = ref([]);
-
     const route = useRoute();
+    const albumTitle = ref('');
+    const albumPhotos = ref([]);
 
     onMounted(async () => {
-      const albumId = route.params.id;
-      try {
-        const albumResponse = await fetch(`http://localhost:3000/albums/${albumId}`);
-        if (albumResponse.ok) {
-          album.value = await albumResponse.json();
-          console.log('Album fetched:', album.value);
+      const { albumId } = route.params;
 
-          // Ambil foto-foto yang ada di album ini
-          photos.value = await fetch(`http://localhost:3000/photos?albumId=${albumId}`).then(response => response.json());
-          console.log('Photos fetched:', photos.value);
+      // Fetch album details
+      try {
+        const albumsResponse = await fetch('http://localhost:3000/albums');
+        if (albumsResponse.ok) {
+          const albums = await albumsResponse.json();
+          const album = albums.find(album => album.id == albumId);
+          if (album) {
+            albumTitle.value = album.title;
+          }
         } else {
-          console.error('Failed to fetch album:', albumResponse.statusText);
+          console.error('Failed to fetch albums:', albumsResponse.statusText);
         }
       } catch (error) {
-        console.error('Failed to fetch album:', error);
+        console.error('Failed to fetch albums:', error);
+      }
+
+      // Fetch photos for the current album
+      try {
+        const photosResponse = await fetch(`http://localhost:3000/photos?albumId=${albumId}`);
+        if (photosResponse.ok) {
+          albumPhotos.value = await photosResponse.json();
+        } else {
+          console.error('Failed to fetch photos:', photosResponse.statusText);
+        }
+      } catch (error) {
+        console.error('Failed to fetch photos:', error);
       }
     });
 
-    // Fungsi untuk menampilkan foto dalam ukuran sebenarnya
-    function viewPhoto(photo) {
-      // Navigasi ke halaman detail foto dengan menyediakan properti `url`
-      router.push({ path: `/photos/${photo.id}`, query: { url: photo.url } });
+    function viewFullSize(url) {
+      window.open(url, '_blank');
     }
 
-    return { album, photos, viewPhoto };
+    return { albumTitle, albumPhotos, viewFullSize };
   }
 };
 </script>
@@ -58,30 +68,31 @@ export default {
   width: 900px;
   margin: 50px auto 90px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-family: Cambria, serif;
   text-align: center;
 }
 
-.album-detail h2 {
-  font-size: 24px;
+.album-title {
+  font-family: Cambria, serif;
+  font-size: 30px; /* Adjust size as needed */
 }
 
-.album-photos {
+.photo-thumbnails {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 20px; /* Jarak antara foto */
+  gap: 10px;
+  justify-content: center;
 }
 
-.album-photos img {
-  width: 150px;
-  height: 150px;
+.photo-thumbnails img {
+  width: 100px;
+  height: 100px;
+  margin: 5px;
   border-radius: 8px;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
 
-.album-photos img:hover {
+.photo-thumbnails img:hover {
   transform: scale(1.1);
 }
 </style>

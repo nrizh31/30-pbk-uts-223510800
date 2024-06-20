@@ -7,7 +7,7 @@
           <div class="album-card">
             <h2>{{ album.title }}</h2>
             <div class="album-thumbnails">
-              <img v-for="(photoId, index) in getAlbumPhotoIds(album.id).slice(0, 4)" :key="index" :src="getPhotoThumbnailUrl(photoId)" :alt="getPhotoTitle(photoId)" @click="viewPhoto(album.id, photoId)">
+              <img v-for="(photoId, index) in getAlbumPhotoIds(album.id).slice(0, 4)" :key="index" :src="getPhotoThumbnailUrl(photoId)" :alt="getPhotoTitle(photoId)">
             </div>
           </div>
         </div>
@@ -30,9 +30,7 @@ export default {
       try {
         const albumsResponse = await fetch('http://localhost:3000/albums');
         if (albumsResponse.ok) {
-          const allAlbums = await albumsResponse.json();
-          albums.value = allAlbums; // Mengambil semua album dari JSON
-          console.log('Albums fetched:', albums.value);
+          albums.value = await albumsResponse.json();
         } else {
           console.error('Failed to fetch albums:', albumsResponse.statusText);
         }
@@ -44,7 +42,6 @@ export default {
         const photosResponse = await fetch('http://localhost:3000/photos');
         if (photosResponse.ok) {
           photos.value = await photosResponse.json();
-          console.log('Photos fetched:', photos.value);
         } else {
           console.error('Failed to fetch photos:', photosResponse.statusText);
         }
@@ -60,24 +57,15 @@ export default {
 
     function getPhotoThumbnailUrl(photoId) {
       const photo = photos.value.find(photo => photo.id === photoId);
-      return photo ? photo.thumbnailUrl : 'https://via.placeholder.com/100x100'; // Placeholder jika foto tidak ditemukan
+      return photo ? photo.thumbnailUrl : 'https://via.placeholder.com/100x100';
     }
 
     function getPhotoTitle(photoId) {
       const photo = photos.value.find(photo => photo.id === photoId);
-      return photo ? photo.title : ''; // Mengembalikan judul foto
+      return photo ? photo.title : '';
     }
 
-    function viewPhoto(albumId, photoId) {
-      const photo = photos.value.find(photo => photo.id === photoId);
-      if (photo) {
-        router.push({ path: `/photos/${photo.id}`, query: { url: photo.url } });
-      }
-    }
-
-    const greetingClass = ref('album-greeting');
-
-    return { greeting, greetingClass, albums, getAlbumPhotoIds, getPhotoThumbnailUrl, getPhotoTitle, viewPhoto };
+    return { greeting, albums, getAlbumPhotoIds, getPhotoThumbnailUrl, getPhotoTitle };
   }
 };
 </script>
@@ -89,25 +77,25 @@ export default {
   padding: 40px 20px;
   border-radius: 8px;
   width: 900px;
-  margin: 50px auto 90px; /* Centering the form horizontally */
+  margin: 50px auto 90px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 
 .album-greeting {
-  font-family: Tahoma, sans-serif;
-  font-size: 30px;
+  font-family: Cambria, serif;
+  font-size: 24px; /* Adjust size as needed */
 }
 
 .albums-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Jarak antara album-item */
-  justify-content: center; /* Centering albums horizontally */
+  gap: 20px;
+  justify-content: center;
 }
 
 .album-item {
-  flex: 1 1 45%; /* Lebar album-item */
+  flex: 1 1 45%;
   margin-bottom: 20px;
 }
 
@@ -122,18 +110,19 @@ export default {
   font-size: 20px;
   margin-bottom: 10px;
   color: #fff;
+  font-family: Cambria, serif; /* Ensure h2 also uses Cambria */
 }
 
 .album-thumbnails {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* Jika ada lebih dari satu thumbnail */
+  flex-wrap: wrap;
 }
 
 .album-thumbnails img {
   width: 100px;
   height: 100px;
-  margin: 5px; /* Jarak antara thumbnail */
+  margin: 5px;
   border-radius: 8px;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
@@ -141,5 +130,11 @@ export default {
 
 .album-thumbnails img:hover {
   transform: scale(1.1);
+}
+
+/* Ensure h1 uses Cambria */
+h1 {
+  font-family: Cambria, serif;
+  font-size: 24px; /* Adjust size as needed */
 }
 </style>

@@ -1,13 +1,28 @@
 {
   "albums": [
-    { "id": 1, "title": "Gelora Bung Karno Stadium", "coverPhotoId": 1, "photoIds": [1] },
-    { "id": 2, "title": "Jakarta International Stadium", "coverPhotoId": 2, "photoIds": [2] },
-    { "id": 3, "title": "Manahan Stadium", "coverPhotoId": 3, "photoIds": [3] }
+    { "id": 1, "title": "Gelora Bung Karno Stadium, Kota Jakarta Pusat", "coverPhotoId": 1, "photoIds": [1] },
+    { "id": 2, "title": "Jakarta International Stadium, Kota jakarta Utara", "coverPhotoId": 2, "photoIds": [2] },
+    { "id": 3, "title": "Manahan Stadium, Kota Surakarta", "coverPhotoId": 3, "photoIds": [3] }
   ],
 
   "photos": [
-    { "albumId": 1, "id": 1, "thumbnailUrl": "https://i.pinimg.com/564x/2b/15/c6/2b15c624dce0720ee78ce8fedffa8b4e.jpg", "url": "https://via.placeholder.com/600/771796" },
-    { "albumId": 2, "id": 2, "thumbnailUrl": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg", "url": "https://via.placeholder.com/600/24f355" },
-    { "albumId": 3, "id": 3, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://via.placeholder.com/600/771796" }
+    { "albumId": 1, "id": 1, "thumbnailUrl": "https://i.pinimg.com/564x/2b/15/c6/2b15c624dce0720ee78ce8fedffa8b4e.jpg", "url": "https://i.pinimg.com/564x/2b/15/c6/2b15c624dce0720ee78ce8fedffa8b4e.jpg" },
+    { "albumId": 1, "id": 1, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
+    { "albumId": 1, "id": 1, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
+    { "albumId": 1, "id": 1, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
+    { "albumId": 1, "id": 1, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
+    { "albumId": 1, "id": 1, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
+    { "albumId": 2, "id": 2, "thumbnailUrl": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg", "url": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg" },
+    { "albumId": 2, "id": 2, "thumbnailUrl": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg", "url": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg" },
+    { "albumId": 2, "id": 2, "thumbnailUrl": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg", "url": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg" },
+    { "albumId": 2, "id": 2, "thumbnailUrl": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg", "url": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg" },
+    { "albumId": 2, "id": 2, "thumbnailUrl": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg", "url": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg" },
+    { "albumId": 2, "id": 2, "thumbnailUrl": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg", "url": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg" },
+    { "albumId": 3, "id": 3, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
+    { "albumId": 3, "id": 3, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
+    { "albumId": 3, "id": 3, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
+    { "albumId": 3, "id": 3, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
+    { "albumId": 3, "id": 3, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
+    { "albumId": 3, "id": 3, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" }
   ]
 }

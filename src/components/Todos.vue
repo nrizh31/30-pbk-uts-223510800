@@ -21,16 +21,21 @@
         Jumlah tugas yang belum selesai: {{ incompleteTaskCount }}
       </p>
     </div>
-    <div class="modal-background" v-if="showModal">
-      <div class="modal">
-        <p>Apakah Anda yakin ingin menghapus tugas ini?</p>
-        <button @click="deleteTaskConfirmed">Ya</button>
-        <button @click="closeModal">Tidak</button>
+    <transition name="modal-fade">
+      <div class="modal-background" v-if="showModal">
+        <div class="modal">
+          <p>Apakah Anda yakin ingin menghapus tugas ini?</p>
+          <!-- Menampilkan QSpinnerBars di dalam modal -->
+          <q-spinner-bars color="green" size="50px" v-if="loading"></q-spinner-bars>
+          <div v-if="!loading">
+            <button @click="deleteTaskConfirmed">Ya</button>
+            <button @click="closeModal">Tidak</button>
+          </div>
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
-
 
 <script>
 import { useTaskStore } from '../stores/indexStores';
@@ -42,6 +47,7 @@ export default {
     const newTask = ref('');
     const showModal = ref(false);
     const taskIndexToDelete = ref(null);
+    const loading = ref(false); // Variable untuk mengontrol loading spinner
 
     const addTask = () => {
       if (newTask.value.trim()) {
@@ -54,8 +60,14 @@ export default {
       taskStore.completeTask(index);
     };
 
-    const deleteTaskConfirmed = () => {
-      taskStore.deleteTask(taskIndexToDelete.value);
+    const deleteTaskConfirmed = async () => {
+      loading.value = true; // Tampilkan loading spinner saat proses hapus dimulai
+      // Simulasi penundaan proses dengan setTimeout (ini untuk simulasi saja)
+      await new Promise(resolve => {
+        setTimeout(resolve, 2000); // Menunggu selama 2 detik sebelum melanjutkan
+      });
+      await taskStore.deleteTask(taskIndexToDelete.value);
+      loading.value = false; // Sembunyikan loading spinner setelah proses hapus selesai
       closeModal();
     };
 
@@ -80,11 +92,51 @@ export default {
       closeModal,
       tasksFiltered,
       incompleteTaskCount,
-      showModal
+      showModal,
+      loading // Mengembalikan variabel loading untuk mengontrol tampilan spinner
     };
   }
 };
 </script>
+
+<style scoped>
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.modal button {
+  margin: 0 10px;
+}
+
+.task-count {
+  text-align: center; /* Menengahkan teks Jumlah tugas yang belum selesai */
+}
+
+/* Transisi modal */
+.modal-fade-enter-active, .modal-fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.modal-fade-enter, .modal-fade-leave-to /* .modal-fade-leave-active di versi <= 2.1.8 */ {
+  opacity: 0;
+}
+</style>
 
 <style>
 button[type="submit"] {
