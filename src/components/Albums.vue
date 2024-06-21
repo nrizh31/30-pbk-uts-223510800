@@ -1,13 +1,13 @@
 <template>
   <div class="post-form">
-    <h1 :class="greetingClass">{{ greeting }}</h1>
+    <h1>{{ greeting }}</h1>
     <div class="albums-container">
       <router-link v-for="album in albums" :key="album.id" :to="'/albums/' + album.id">
         <div class="album-item">
           <div class="album-card">
             <h2>{{ album.title }}</h2>
-            <div class="album-thumbnails">
-              <img v-for="(photoId, index) in getAlbumPhotoIds(album.id).slice(0, 4)" :key="index" :src="getPhotoThumbnailUrl(photoId)" :alt="getPhotoTitle(photoId)">
+            <div class="album-cover">
+              <img :src="getAlbumCoverUrl(album.id)" :alt="album.title">
             </div>
           </div>
         </div>
@@ -31,7 +31,6 @@ export default {
         const albumsResponse = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/albums');
         if (albumsResponse.ok) {
           const albumsData = await albumsResponse.json();
-          console.log(albumsData);  // Menampilkan data albums di konsol
           albums.value = albumsData;
         } else {
           console.error('Failed to fetch albums:', albumsResponse.statusText);
@@ -57,17 +56,13 @@ export default {
       return album ? album.photoIds || [] : [];
     }
 
-    function getPhotoThumbnailUrl(photoId) {
+    function getAlbumCoverUrl(albumId) {
+      const photoId = getAlbumPhotoIds(albumId)[0]; // Ambil foto pertama dari album
       const photo = photos.value.find(photo => photo.id === photoId);
-      return photo ? photo.thumbnailUrl : 'https://via.placeholder.com/100x100';
+      return photo ? photo.thumbnailUrl : 'https://via.placeholder.com/200x200'; // Placeholder jika tidak ada foto
     }
 
-    function getPhotoTitle(photoId) {
-      const photo = photos.value.find(photo => photo.id === photoId);
-      return photo ? photo.title : '';
-    }
-
-    return { greeting, albums, getAlbumPhotoIds, getPhotoThumbnailUrl, getPhotoTitle };
+    return { greeting, albums, getAlbumCoverUrl };
   }
 };
 </script>
@@ -82,11 +77,6 @@ export default {
   margin: 50px auto 90px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
-}
-
-.album-greeting {
-  font-family: Cambria, serif;
-  font-size: 24px; /* Adjust size as needed */
 }
 
 .albums-container {
@@ -115,28 +105,21 @@ export default {
   font-family: Cambria, serif; /* Ensure h2 also uses Cambria */
 }
 
-.album-thumbnails {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.album-thumbnails img {
-  width: 100px;
-  height: 100px;
-  margin: 5px;
+.album-cover img {
+  width: 200px; /* Ukuran tetap 200x200px */
+  height: 200px; /* Ukuran tetap 200x200px */
+  object-fit: cover; /* Memastikan gambar diisi sesuai dengan ukuran tanpa distorsi */
   border-radius: 8px;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
 
-.album-thumbnails img:hover {
+.album-cover img:hover {
   transform: scale(1.1);
 }
 
-/* Ensure h1 uses Cambria */
 h1 {
   font-family: Cambria, serif;
-  font-size: 24px; /* Adjust size as needed */
+  font-size: 40px; /* Adjust size as needed */
 }
 </style>

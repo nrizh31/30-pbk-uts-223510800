@@ -2,15 +2,21 @@
   <div class="post-form">
     <form ref="postForm">
       <label for="userSelect">Pilih Pemain Timnas:</label>
-      <select id="userSelect" v-model="selectedUserId" @change="showUserDetails" required>
-        <option value="" selected disabled>Select Player</option>
+      <select id="userSelect" v-model="selectedUserId" @change="handleChange" required>
+        <option value="" selected disabled>Select Player Timnas</option>
         <option v-for="user in users" :key="user.userId" :value="user.userId">{{ user.title }}</option>
       </select>
-      <div v-if="selectedUser" class="user-details">
-        <h2>{{ selectedUser.title }}</h2>
-        <p>{{ selectedUser.body }}</p>
-      </div>
     </form>
+
+    <div class="user-details" v-if="selectedUser">
+      <h2>{{ selectedUser.title }}</h2>
+      <p class="body-text">{{ selectedUser.body }}</p>
+    </div>
+
+    <div v-if="loading" class="spinner-container">
+      <q-spinner-bars color="red" size="50px"></q-spinner-bars>
+    </div>
+
     <div v-if="submittedData">
       <h3>Submitted Data:</h3>
       <pre>{{ submittedData }}</pre>
@@ -25,37 +31,64 @@ export default {
       users: [],
       selectedUserId: null,
       selectedUser: null,
-      submittedData: null
-    }
+      submittedData: null,
+      loading: false
+    };
   },
   methods: {
     async fetchUsers() {
       try {
+        this.loading = true;
         const response = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/post');
         if (response.ok) {
           const data = await response.json();
           this.users = data;
         } else {
-          throw new Error('Failed to fetch posts');
+          throw new Error('Failed to fetch users');
         }
       } catch (error) {
-        console.error('Error fetching posts:', error);
-        alert('Failed to fetch posts. Please refresh the page.');
+        console.error('Error fetching users:', error);
+        alert('Failed to fetch users. Please refresh the page.');
+      } finally {
+        // Delay the loading indicator reset
+        setTimeout(() => {
+          this.loading = false;
+        }, 3000); // Delay in milliseconds (adjust as needed)
       }
     },
-    showUserDetails() {
-      this.selectedUser = this.users.find(user => user.userId === this.selectedUserId);
+    async showUserDetails() {
+      try {
+        this.loading = true;
+        const selectedUser = this.users.find(user => user.userId === this.selectedUserId);
+        if (selectedUser) {
+          this.selectedUser = selectedUser;
+        } else {
+          throw new Error('User details not found');
+        }
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+        alert('Failed to fetch user details.');
+      } finally {
+        // Delay the loading indicator reset
+        setTimeout(() => {
+          this.loading = false;
+        }, 3000); // Delay in milliseconds (adjust as needed)
+      }
+    },
+    handleChange() {
+      this.selectedUser = null;
+      this.showUserDetails();
     }
   },
   mounted() {
     this.fetchUsers();
   }
-}
+};
 </script>
 
 <style scoped>
 .post-form {
-  font-family: 'Cambria', serif; /* Menambahkan font-family untuk seluruh form */
+  font-family: 'Cambria', serif;
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   padding: 20px;
@@ -80,18 +113,36 @@ export default {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #fff;
+  background-color: #cfa0a0;
   color: #000;
 }
 
-.post-form .user-details {
+.user-details {
   background-color: rgba(255, 255, 255, 0.1);
   padding: 10px;
   border-radius: 4px;
   margin-bottom: 20px;
+  text-align: justify; /* Rata kiri-kanan */
 }
 
-.post-form .user-details p {
-  font-size: 18px; /* Memperbesar ukuran teks dalam elemen body */
+.user-details h2 {
+  font-size: 30px; /* Besarkan judul */
+  text-align: center; /* Pusatkan judul */
+}
+
+.body-text {
+  font-size: 20px; /* Besarkan teks badan */
+  text-align: justify; /* Rata kiri-kanan */
+}
+
+.spinner-container {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.q-spinner-bars {
+  display: inline-block;
 }
 </style>
