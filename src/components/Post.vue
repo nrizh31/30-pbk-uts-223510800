@@ -1,13 +1,20 @@
 <template>
   <div class="post-form">
-    <form ref="postForm" @submit.prevent="submitPost">
+    <form ref="postForm">
       <label for="userSelect">Pilih Pemain Timnas:</label>
-      <select id="userSelect" v-model="selectedUser" required>
-        <option value="" disabled>Select Player</option>
-        <option v-for="user in users" :key="user.userId" :value="user">{{ user.title }}</option>
+      <select id="userSelect" v-model="selectedUserId" @change="showUserDetails" required>
+        <option value="" selected disabled>Select Player</option>
+        <option v-for="user in users" :key="user.userId" :value="user.userId">{{ user.title }}</option>
       </select>
-      <button type="submit">Submit</button>
+      <div v-if="selectedUser" class="user-details">
+        <h2>{{ selectedUser.title }}</h2>
+        <p>{{ selectedUser.body }}</p>
+      </div>
     </form>
+    <div v-if="submittedData">
+      <h3>Submitted Data:</h3>
+      <pre>{{ submittedData }}</pre>
+    </div>
   </div>
 </template>
 
@@ -16,53 +23,28 @@ export default {
   data() {
     return {
       users: [],
-      selectedUser: null
+      selectedUserId: null,
+      selectedUser: null,
+      submittedData: null
     }
   },
   methods: {
-    async submitPost() {
-      if (!this.selectedUser) return;
-      
-      try {
-        const response = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/posts', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            userId: this.selectedUser.userId,
-            title: this.selectedUser.title,
-            body: this.selectedUser.body
-          })
-        });
-        
-        if (!response.ok) {
-          throw new Error('Failed to submit post');
-        }
-        
-        const postData = await response.json();
-        alert(`Post submitted for user: ${this.selectedUser.title}`);
-        this.selectedUser = null;
-        
-        // Optional: Update UI with new post data if needed
-      } catch (error) {
-        console.error('Error submitting post:', error);
-        alert('Failed to submit post. Please try again later.');
-      }
-    },
     async fetchUsers() {
       try {
-        const response = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/posts');
+        const response = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/post');
         if (response.ok) {
           const data = await response.json();
           this.users = data;
         } else {
-          throw new Error('Failed to fetch users');
+          throw new Error('Failed to fetch posts');
         }
       } catch (error) {
-        console.error('Error fetching users:', error);
-        alert('Failed to fetch users. Please refresh the page.');
+        console.error('Error fetching posts:', error);
+        alert('Failed to fetch posts. Please refresh the page.');
       }
+    },
+    showUserDetails() {
+      this.selectedUser = this.users.find(user => user.userId === this.selectedUserId);
     }
   },
   mounted() {
@@ -73,11 +55,12 @@ export default {
 
 <style scoped>
 .post-form {
+  font-family: 'Cambria', serif; /* Menambahkan font-family untuk seluruh form */
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   padding: 20px;
   border-radius: 8px;
-  width: 300px;
+  width: 60%;
   margin: 20px auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -101,17 +84,14 @@ export default {
   color: #000;
 }
 
-.post-form button {
-  padding: 10px 15px;
-  border: none;
+.post-form .user-details {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px;
   border-radius: 4px;
-  background-color: #4CAF50;
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
+  margin-bottom: 20px;
 }
 
-.post-form button:hover {
-  background-color: #45a049;
+.post-form .user-details p {
+  font-size: 18px; /* Memperbesar ukuran teks dalam elemen body */
 }
 </style>

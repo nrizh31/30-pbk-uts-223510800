@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf" class="app-layout">
-    <q-header elevated class="bg-navy text-white" style="min-height: 120px;">
+    <q-header elevated class="bg-red text-white" style="min-height: 120px;">
       <q-toolbar>
         <q-toolbar-title class="q-ml-auto q-mr-md">{{ formattedDateTime }}</q-toolbar-title>
       </q-toolbar>
@@ -62,8 +62,8 @@ export default {
 
 <style scoped>
 /* Gaya khusus untuk komponen Vue Anda */
-.app-layout .bg-navy {
-  background-color: #055009; /* Warna biru navy */
+.app-layout .bg-red {
+  background-color: #c80000; /* Warna merah */
 }
 
 .q-tabs__item--active {
