@@ -13,15 +13,17 @@
     { "albumId": 1, "id": 4, "thumbnailUrl": "https://i.pinimg.com/564x/01/be/c3/01bec3a835ac4f35e03bd50c21ddb985.jpg", "url": "https://i.pinimg.com/564x/01/be/c3/01bec3a835ac4f35e03bd50c21ddb985.jpg" },
     { "albumId": 1, "id": 5, "thumbnailUrl": "https://i.pinimg.com/736x/2f/c8/25/2fc825534c62a6bfdbb10ebf673c8825.jpg", "url": "https://i.pinimg.com/736x/2f/c8/25/2fc825534c62a6bfdbb10ebf673c8825.jpg" },
     { "albumId": 2, "id": 6, "thumbnailUrl": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg", "url": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg" },
-    { "albumId": 2, "id": 7, "thumbnailUrl": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg", "url": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg" },
-    { "albumId": 2, "id": 8, "thumbnailUrl": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg", "url": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg" },
-    { "albumId": 2, "id": 9, "thumbnailUrl": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg", "url": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg" },
-    { "albumId": 2, "id": 10, "thumbnailUrl": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg", "url": "https://i.pinimg.com/736x/61/a1/8b/61a18b48f0105fcae284d21985005025.jpg" },
+    { "albumId": 2, "id": 7, "thumbnailUrl": "https://i.pinimg.com/564x/f4/06/c8/f406c8508fdc3cb08c77da89c3a218bd.jpg", "url": "https://i.pinimg.com/564x/f4/06/c8/f406c8508fdc3cb08c77da89c3a218bd.jpg" },
+    { "albumId": 2, "id": 8, "thumbnailUrl": "https://i.pinimg.com/736x/be/4c/3b/be4c3b7838b9038c1d9b9c5940d91fed.jpg", "url": "https://i.pinimg.com/736x/be/4c/3b/be4c3b7838b9038c1d9b9c5940d91fed.jpg" },
+    { "albumId": 2, "id": 9, "thumbnailUrl": "https://cdn-assetd.kompas.id/QEIExOrA-cJ6DzVN3gtePFBUbXw=/1024x683/https%3A%2F%2Fasset.kgnewsroom.com%2Fphoto%2Fpre%2F2023%2F06%2F26%2F650b8814-e9da-4bef-b361-16d6f2563b63_jpg.jpg", "url": "https://cdn-assetd.kompas.id/QEIExOrA-cJ6DzVN3gtePFBUbXw=/1024x683/https%3A%2F%2Fasset.kgnewsroom.com%2Fphoto%2Fpre%2F2023%2F06%2F26%2F650b8814-e9da-4bef-b361-16d6f2563b63_jpg.jpg" },
+    { "albumId": 2, "id": 10, "thumbnailUrl": "https://cdn-assetd.kompas.id/QEIExOrA-cJ6DzVN3gtePFBUbXw=/1024x683/https%3A%2F%2Fasset.kgnewsroom.com%2Fphoto%2Fpre%2F2023%2F06%2F26%2F650b8814-e9da-4bef-b361-16d6f2563b63_jpg.jpg", "url": "https://cdn-assetd.kompas.id/QEIExOrA-cJ6DzVN3gtePFBUbXw=/1024x683/https%3A%2F%2Fasset.kgnewsroom.com%2Fphoto%2Fpre%2F2023%2F06%2F26%2F650b8814-e9da-4bef-b361-16d6f2563b63_jpg.jpg" },
+    { "albumId": 2, "id": 10, "thumbnailUrl": "https://bit.ly/3RDsTmj", "url": "https://bit.ly/3RDsTmj" },
     { "albumId": 3, "id": 11, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
-    { "albumId": 3, "id": 12, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
-    { "albumId": 3, "id": 13, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
-    { "albumId": 3, "id": 14, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" },
-    { "albumId": 3, "id": 15, "thumbnailUrl": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg", "url": "https://i.pinimg.com/564x/2e/10/ea/2e10ea943c2c1f66d21ea8073b814e77.jpg" }
+    { "albumId": 3, "id": 12, "thumbnailUrl": "https://i.pinimg.com/736x/f4/67/93/f46793fa07908dd6d9b23087b76f474d.jpg", "url": "https://i.pinimg.com/736x/f4/67/93/f46793fa07908dd6d9b23087b76f474d.jpg" },
+    { "albumId": 3, "id": 13, "thumbnailUrl": "https://imsport.tv/wp-content/uploads/2023/08/Ini-Kekurangan-Stadion-Manahan-Solo-Seusai-dicek-FIFA.jpg", "url": "https://imsport.tv/wp-content/uploads/2023/08/Ini-Kekurangan-Stadion-Manahan-Solo-Seusai-dicek-FIFA.jpg" },
+    { "albumId": 3, "id": 14, "thumbnailUrl": "https://i.pinimg.com/564x/ef/35/c2/ef35c2578ddb3eabda30e93e394ca574.jpg", "url": "https://i.pinimg.com/564x/ef/35/c2/ef35c2578ddb3eabda30e93e394ca574.jpg" },
+    { "albumId": 3, "id": 14, "thumbnailUrl": "https://i.pinimg.com/564x/ef/35/c2/ef35c2578ddb3eabda30e93e394ca574.jpg", "url": "https://i.pinimg.com/564x/ef/35/c2/ef35c2578ddb3eabda30e93e394ca574.jpg" },
+    { "albumId": 3, "id": 15, "thumbnailUrl": "https://colorbond.id/files/Artikel/COLORBOND%C2%AE%20Gull%20Grey%20Stadion%20Manahan.jpg", "url": "https://colorbond.id/files/Artikel/COLORBOND%C2%AE%20Gull%20Grey%20Stadion%20Manahan.jpg" }
   ],
 
   "post": [
