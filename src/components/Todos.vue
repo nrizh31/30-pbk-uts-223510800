@@ -26,7 +26,7 @@
         <div class="modal">
           <p>Apakah Anda yakin ingin menghapus tugas ini?</p>
           <!-- Menampilkan QSpinnerBars di dalam modal -->
-          <q-spinner-bars color="green" size="50px" v-if="loading"></q-spinner-bars>
+          <q-spinner-bars color="red" size="50px" v-if="loading"></q-spinner-bars>
           <div v-if="!loading">
             <button @click="deleteTaskConfirmed">Ya</button>
             <button @click="closeModal">Tidak</button>
