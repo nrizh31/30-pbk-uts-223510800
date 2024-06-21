@@ -1,8 +1,8 @@
 {
   "albums": [
-    { "id": 1, "title": "Gelora Bung Karno Stadium, Kota Jakarta Pusat", "coverPhotoId": 1, "photoIds": [1, 2, 3, 4, 5] },
-    { "id": 2, "title": "Jakarta International Stadium, Kota Jakarta Utara", "coverPhotoId": 6, "photoIds": [6, 7, 8, 9, 10] },
-    { "id": 3, "title": "Manahan Stadium, Kota Surakarta", "coverPhotoId": 11, "photoIds": [11, 12, 13, 14, 15] }
+    { "id": 1, "title": "Gelora Bung Karno Stadium, Kota Jakarta Pusat", "coverPhotoId": 1, "photoIds": [1, 2, 3, 4, 5,6] },
+    { "id": 2, "title": "Jakarta International Stadium, Kota Jakarta Utara", "coverPhotoId": 7, "photoIds": [7, 8, 9, 10, 11, 12] },
+    { "id": 3, "title": "Manahan Stadium, Kota Surakarta", "coverPhotoId": 13, "photoIds": [13, 14, 15, 16, 17, 18] }
   ],
 
   "photos": [

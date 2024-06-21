@@ -36,6 +36,9 @@ export default {
     this.currentTimeInterval = setInterval(() => {
       this.updateDateTime();
     }, 1000);
+
+    // Panggil sekali saat komponen dibuat untuk menginisialisasi waktu
+    this.updateDateTime();
   },
   destroyed() {
     // Clear interval when component is destroyed to prevent memory leaks
@@ -55,6 +58,16 @@ export default {
         day: 'numeric'
       };
       this.formattedDateTime = now.toLocaleString('id-ID', options);
+    }
+  },
+  watch: {
+    // Watch the route changes to dynamically set the active tab
+    '$route'(to, from) {
+      if (to.path.includes('/post')) {
+        this.currentMenu = 'post';
+      } else {
+        this.currentMenu = 'todos'; // Default to 'todos' for other routes
+      }
     }
   }
 }
