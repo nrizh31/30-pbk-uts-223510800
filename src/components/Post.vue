@@ -15,20 +15,54 @@
 export default {
   data() {
     return {
-      users: [
-        { id: 1, name: 'Naufal Rizh' },
-        { id: 2, name: 'Aldo Albert' },
-        { id: 3, name: 'Teguh Starboy' },
-        { id: 4, name: 'Rifky Fxrusy' },
-      ],
+      users: [],
       selectedUser: ''
     }
   },
   methods: {
-    submitPost() {
-      alert(`Post submitted for user: ${this.selectedUser.name}`);
-      this.selectedUser = '';
+    async submitPost() {
+      if (!this.selectedUser) return;
+      
+      try {
+        const response = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/post', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userId: this.selectedUser.id,
+            title: 'New Post',
+            body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to submit post');
+        }
+        
+        alert(`Post submitted for user: ${this.selectedUser.name}`);
+        this.selectedUser = '';
+      } catch (error) {
+        console.error('Error submitting post:', error);
+        alert('Failed to submit post. Please try again later.');
+      }
+    },
+    async fetchUsers() {
+      try {
+        const response = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/post');
+        if (response.ok) {
+          const data = await response.json();
+          this.users = data;
+        } else {
+          throw new Error('Failed to fetch users');
+        }
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
     }
+  },
+  mounted() {
+    this.fetchUsers();
   }
 }
 </script>
