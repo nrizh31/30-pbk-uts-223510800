@@ -19,6 +19,7 @@
 <script>
 import { ref, onMounted } from 'vue';
 
+
 export default {
   name: 'Albums',
   setup() {
@@ -28,7 +29,7 @@ export default {
 
     onMounted(async () => {
       try {
-        const albumsResponse = await fetch('http://localhost:3000/albums');
+        const albumsResponse = await fetch('https://github.com/nrizh31/db.json.git');
         if (albumsResponse.ok) {
           albums.value = await albumsResponse.json();
         } else {
@@ -39,7 +40,7 @@ export default {
       }
 
       try {
-        const photosResponse = await fetch('http://localhost:3000/photos');
+        const photosResponse = await fetch('https://github.com/nrizh31/db.json.git');
         if (photosResponse.ok) {
           photos.value = await photosResponse.json();
         } else {

@@ -23,7 +23,7 @@ export default {
 
       // Fetch album details
       try {
-        const albumsResponse = await fetch('http://localhost:3000/albums');
+        const albumsResponse = await fetch('https://github.com/nrizh31/db.json.git');
         if (albumsResponse.ok) {
           const albums = await albumsResponse.json();
           const album = albums.find(album => album.id == albumId);
@@ -39,7 +39,7 @@ export default {
 
       // Fetch photos for the current album
       try {
-        const photosResponse = await fetch(`http://localhost:3000/photos?albumId=${albumId}`);
+        const photosResponse = await fetch(`https://github.com/nrizh31/db.json.git`);
         if (photosResponse.ok) {
           albumPhotos.value = await photosResponse.json();
         } else {
