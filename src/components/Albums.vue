@@ -19,7 +19,6 @@
 <script>
 import { ref, onMounted } from 'vue';
 
-
 export default {
   name: 'Albums',
   setup() {
@@ -29,9 +28,11 @@ export default {
 
     onMounted(async () => {
       try {
-        const albumsResponse = await fetch('https://github.com/nrizh31/db.json.git');
+        const albumsResponse = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/albums');
         if (albumsResponse.ok) {
-          albums.value = await albumsResponse.json();
+          const albumsData = await albumsResponse.json();
+          console.log(albumsData);  // Menampilkan data albums di konsol
+          albums.value = albumsData;
         } else {
           console.error('Failed to fetch albums:', albumsResponse.statusText);
         }
@@ -40,7 +41,7 @@ export default {
       }
 
       try {
-        const photosResponse = await fetch('https://github.com/nrizh31/db.json.git');
+        const photosResponse = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/photos');
         if (photosResponse.ok) {
           photos.value = await photosResponse.json();
         } else {
