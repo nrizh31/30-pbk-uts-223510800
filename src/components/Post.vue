@@ -1,10 +1,10 @@
 <template>
   <div class="post-form">
-    <form @submit.prevent="submitPost">
-      <label for="userSelect">Pilih User:</label>
+    <form ref="postForm" @submit.prevent="submitPost">
+      <label for="userSelect">Pilih Pemain Timnas:</label>
       <select id="userSelect" v-model="selectedUser" required>
-        <option value="" disabled>Pilih User</option>
-        <option v-for="user in users" :key="user.id" :value="user">{{ user.name }}</option>
+        <option value="" disabled>Select Player</option>
+        <option v-for="user in users" :key="user.userId" :value="user">{{ user.title }}</option>
       </select>
       <button type="submit">Submit</button>
     </form>
@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       users: [],
-      selectedUser: ''
+      selectedUser: null
     }
   },
   methods: {
@@ -24,15 +24,15 @@ export default {
       if (!this.selectedUser) return;
       
       try {
-        const response = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/post', {
+        const response = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/posts', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            userId: this.selectedUser.id,
-            title: 'New Post',
-            body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+            userId: this.selectedUser.userId,
+            title: this.selectedUser.title,
+            body: this.selectedUser.body
           })
         });
         
@@ -40,8 +40,11 @@ export default {
           throw new Error('Failed to submit post');
         }
         
-        alert(`Post submitted for user: ${this.selectedUser.name}`);
-        this.selectedUser = '';
+        const postData = await response.json();
+        alert(`Post submitted for user: ${this.selectedUser.title}`);
+        this.selectedUser = null;
+        
+        // Optional: Update UI with new post data if needed
       } catch (error) {
         console.error('Error submitting post:', error);
         alert('Failed to submit post. Please try again later.');
@@ -49,7 +52,7 @@ export default {
     },
     async fetchUsers() {
       try {
-        const response = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/post');
+        const response = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/posts');
         if (response.ok) {
           const data = await response.json();
           this.users = data;
@@ -58,6 +61,7 @@ export default {
         }
       } catch (error) {
         console.error('Error fetching users:', error);
+        alert('Failed to fetch users. Please refresh the page.');
       }
     }
   },
