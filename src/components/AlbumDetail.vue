@@ -85,8 +85,8 @@ export default {
 }
 
 .photo-thumbnails img {
-  width: 100px;
-  height: 100px;
+  width: 300px;
+  height: 300px;
   margin: 5px;
   border-radius: 8px;
   cursor: pointer;
