@@ -6,9 +6,9 @@
       </q-toolbar>
 
       <q-tabs align="center" class="justify-center" style="flex: 1;">
-        <q-route-tab to="/todos" label="Todo" :exact="true" />
-        <q-route-tab to="/post" label="Post" :exact="true" />
-        <q-route-tab to="/albums" label="Albums" :exact="true" />
+        <q-route-tab to="/todos" label="Todos" exact="true" />
+        <q-route-tab to="/post" label="Post" />
+        <q-route-tab to="/albums" label="Albums" />
       </q-tabs>
     </q-header>
 
@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       formattedDateTime: ''
-    }
+    };
   },
   created() {
     this.updateDateTime();
@@ -48,7 +48,7 @@ export default {
       this.formattedDateTime = now.toLocaleString('id-ID', options);
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -57,7 +57,7 @@ export default {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed; /* Tambahkan ini */
+  background-attachment: fixed;
   height: 100vh;
 }
 

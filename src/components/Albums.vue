@@ -69,15 +69,6 @@ export default {
 </script>
 
 <style scoped>
-.app-layout {
-  background-image: url('./assets/gbk3.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed; /* Tambahkan ini */
-  height: 100vh;
-}
-
 .post-form {
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
