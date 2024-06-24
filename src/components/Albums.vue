@@ -28,7 +28,7 @@ export default {
 
     onMounted(async () => {
       try {
-        const albumsResponse = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/albums');
+        const albumsResponse = await fetch('https://jsonplaceholder.typicode.com/albums');
         if (albumsResponse.ok) {
           const albumsData = await albumsResponse.json();
           albums.value = albumsData;

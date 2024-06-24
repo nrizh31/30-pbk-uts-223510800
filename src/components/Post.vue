@@ -1,10 +1,10 @@
 <template>
   <div class="post-form">
     <form ref="postForm">
-      <label for="userSelect">Pilih Pemain Timnas:</label>
+      <label for="userSelect">Pilih Nama Pengguna:</label>
       <select id="userSelect" v-model="selectedUserId" @change="handleChange" required>
         <option value="" selected disabled>Select Player Timnas</option>
-        <option v-for="user in users" :key="user.userId" :value="user.userId">{{ user.title }}</option>
+        <option v-for="user in users" :key="user.id" :value="user.id">{{ user.title }}</option>
       </select>
     </form>
 
@@ -39,7 +39,7 @@ export default {
     async fetchUsers() {
       try {
         this.loading = true;
-        const response = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/post');
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
         if (response.ok) {
           const data = await response.json();
           this.users = data;
@@ -59,7 +59,7 @@ export default {
     async showUserDetails() {
       try {
         this.loading = true;
-        const selectedUser = this.users.find(user => user.userId === this.selectedUserId);
+        const selectedUser = this.users.find(user => user.id === this.selectedUserId);
         if (selectedUser) {
           this.selectedUser = selectedUser;
         } else {

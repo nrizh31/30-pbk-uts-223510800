@@ -23,7 +23,7 @@ export default {
 
       // Fetch album details
       try {
-        const albumsResponse = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/albums');
+        const albumsResponse = await fetch('https://jsonplaceholder.typicode.com/albums');
         if (albumsResponse.ok) {
           const albums = await albumsResponse.json();
           console.log(albums);  // Menampilkan data albums di konsol
@@ -40,7 +40,7 @@ export default {
 
       // Fetch photos for the current album
       try {
-        const photosResponse = await fetch(`https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/photos?albumId=${albumId}`);
+        const photosResponse = await fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`);
         if (photosResponse.ok) {
           albumPhotos.value = await photosResponse.json();
         } else {
