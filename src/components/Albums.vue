@@ -2,7 +2,7 @@
   <div class="post-form">
     <h1>{{ greeting }}</h1>
     <div class="albums-container">
-      <router-link v-for="album in albums" :key="album.id" :to="'/albums/' + album.id">
+      <router-link v-for="album in albums" :key="album.id" :to="'/albums/' + album.id" class="album-link">
         <div class="album-item">
           <div class="album-card">
             <h2>{{ album.title }}</h2>
@@ -40,9 +40,10 @@ export default {
       }
 
       try {
-        const photosResponse = await fetch('https://my-json-server.typicode.com/nrizh31/30-pbk-uts-223510800/photos');
+        const photosResponse = await fetch('https://jsonplaceholder.typicode.com/photos'); // Perbaiki URL fetch photos
         if (photosResponse.ok) {
-          photos.value = await photosResponse.json();
+          const photosData = await photosResponse.json();
+          photos.value = photosData;
         } else {
           console.error('Failed to fetch photos:', photosResponse.statusText);
         }
@@ -68,12 +69,22 @@ export default {
 </script>
 
 <style scoped>
+.app-layout {
+  background-image: url('./assets/gbk3.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Tambahkan ini */
+  height: 100vh;
+}
+
 .post-form {
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
-  padding: 40px 20px;
+  padding: 20px;
   border-radius: 8px;
-  width: 900px;
+  width: 90%; /* Lebar disesuaikan agar responsif */
+  max-width: 1200px; /* Maksimum lebar untuk memastikan tidak terlalu lebar */
   margin: 50px auto 90px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
@@ -86,8 +97,12 @@ export default {
   justify-content: center;
 }
 
+.album-link {
+  flex: 1 1 30%; /* Lebar item disesuaikan agar 3 kolom per baris */
+  max-width: 300px; /* Maksimum lebar item */
+}
+
 .album-item {
-  flex: 1 1 45%;
   margin-bottom: 20px;
 }
 
@@ -99,15 +114,15 @@ export default {
 }
 
 .album-card h2 {
-  font-size: 20px;
+  font-size: 18px; /* Ukuran font h2 yang lebih kecil */
   margin-bottom: 10px;
   color: #fff;
   font-family: Cambria, serif; /* Ensure h2 also uses Cambria */
 }
 
 .album-cover img {
-  width: 200px; /* Ukuran tetap 200x200px */
-  height: 200px; /* Ukuran tetap 200x200px */
+  width: 100%; /* Lebar gambar 100% dari parent */
+  height: auto; /* Tinggi disesuaikan agar proporsi gambar tetap terjaga */
   object-fit: cover; /* Memastikan gambar diisi sesuai dengan ukuran tanpa distorsi */
   border-radius: 8px;
   cursor: pointer;
@@ -115,11 +130,12 @@ export default {
 }
 
 .album-cover img:hover {
-  transform: scale(1.1);
+  transform: scale(1.05); /* Perbesar sedikit saat hover */
 }
 
 h1 {
   font-family: Cambria, serif;
-  font-size: 40px; /* Adjust size as needed */
+  font-size: 32px; /* Ukuran font h1 yang lebih kecil */
+  margin-bottom: 20px;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="album-detail">
     <h1 class="album-title">{{ albumTitle }}</h1>
     <div class="photo-thumbnails">
-      <img v-for="photo in albumPhotos.slice(0, 10)" :key="photo.id" :src="photo.thumbnailUrl" @click="viewFullSize(photo.url)">
+      <img v-for="photo in albumPhotos.slice(0, 10)" :key="photo.id" :src="photo.thumbnailUrl" @click="viewFullSize(photo.url)" alt="Thumbnail">
     </div>
   </div>
 </template>
@@ -24,15 +24,15 @@ export default {
       // Fetch album details
       try {
         const albumsResponse = await fetch('https://jsonplaceholder.typicode.com/albums');
-        if (albumsResponse.ok) {
-          const albums = await albumsResponse.json();
-          console.log(albums);  // Menampilkan data albums di konsol
-          const album = albums.find(album => album.id == albumId);
-          if (album) {
-            albumTitle.value = album.title;
-          }
+        if (!albumsResponse.ok) {
+          throw new Error('Failed to fetch albums: ' + albumsResponse.statusText);
+        }
+        const albums = await albumsResponse.json();
+        const album = albums.find(album => album.id == albumId);
+        if (album) {
+          albumTitle.value = album.title;
         } else {
-          console.error('Failed to fetch albums:', albumsResponse.statusText);
+          console.error('Album not found');
         }
       } catch (error) {
         console.error('Failed to fetch albums:', error);
@@ -41,11 +41,10 @@ export default {
       // Fetch photos for the current album
       try {
         const photosResponse = await fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`);
-        if (photosResponse.ok) {
-          albumPhotos.value = await photosResponse.json();
-        } else {
-          console.error('Failed to fetch photos:', photosResponse.statusText);
+        if (!photosResponse.ok) {
+          throw new Error('Failed to fetch photos: ' + photosResponse.statusText);
         }
+        albumPhotos.value = await photosResponse.json();
       } catch (error) {
         console.error('Failed to fetch photos:', error);
       }

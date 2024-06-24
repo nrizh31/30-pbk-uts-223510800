@@ -23,33 +23,21 @@ export default {
   name: 'App',
   data() {
     return {
-      currentMenu: 'todos', // Menu default adalah Todo
-      currentTimeInterval: null,
       formattedDateTime: ''
     }
   },
   created() {
-    // Redirect to "/todos" when component is created
-    this.$router.push('/todos');
-
-    // Set interval to update current time every second
-    this.currentTimeInterval = setInterval(() => {
+    this.updateDateTime();
+    setInterval(() => {
       this.updateDateTime();
     }, 1000);
-
-    // Panggil sekali saat komponen dibuat untuk menginisialisasi waktu
-    this.updateDateTime();
-  },
-  destroyed() {
-    // Clear interval when component is destroyed to prevent memory leaks
-    clearInterval(this.currentTimeInterval);
   },
   methods: {
     updateDateTime() {
       const now = new Date();
       const options = {
-        timeZone: 'Asia/Jakarta', // Set timezone to WIB (Western Indonesia Time)
-        hour12: false, // Use 24-hour format
+        timeZone: 'Asia/Jakarta',
+        hour12: false,
         hour: 'numeric',
         minute: 'numeric',
         second: 'numeric',
@@ -59,36 +47,34 @@ export default {
       };
       this.formattedDateTime = now.toLocaleString('id-ID', options);
     }
-  },
-  watch: {
-    // Watch the route changes to dynamically set the active tab
-    '$route'(to, from) {
-      if (to.path.includes('/post')) {
-        this.currentMenu = 'post';
-      } else {
-        this.currentMenu = 'todos'; // Default to 'todos' for other routes
-      }
-    }
   }
 }
 </script>
 
 <style scoped>
-/* Gaya khusus untuk komponen Vue Anda */
-.app-layout .bg-red {
-  background-color: #c80000; /* Warna merah */
+.app-layout {
+  background-image: url('./assets/gbk3.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Tambahkan ini */
+  height: 100vh;
+}
+
+.bg-red {
+  background-color: #c80000;
 }
 
 .q-tabs__item--active {
-  border-bottom: 2px solid white; /* Menambahkan garis bawah putih untuk tab aktif */
+  border-bottom: 2px solid white;
 }
 
 .q-ml-auto {
-  margin-left: auto; /* Memindahkan ke kanan dengan margin-left:auto */
+  margin-left: auto;
 }
 
 .q-mr-md {
-  margin-right: 20px; /* Memberikan margin kanan */
-  text-align: right; /* Menyebarkan teks ke kanan */
+  margin-right: 20px;
+  text-align: right;
 }
 </style>
